@@ -1,0 +1,37 @@
+<div fxFlexFill class="admin-page">
+  <div class="page-header" fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-xs="start start"
+       fxLayoutGap="20px">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex>
+      <mat-icon class="material-icons-outlined">settings</mat-icon>
+
+      <div>
+        <h1 class="title" style="margin: 0">Impostazioni</h1>
+        <div class="subtitle">Gestisci il tuo account</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-content" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="30px">
+    <div fxFlex.gt-xs="30" fxFlex.gt-md="20" fxLayout="column" fxLayoutAlign="start stretch">
+      <mat-nav-list role="list">
+        <a [routerLinkActive]="'active'" mat-list-item routerLink="profile">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+            <mat-icon class="material-icons-outlined">people</mat-icon>
+            <span>Generale</span>
+          </div>
+        </a>
+        <a [routerLinkActive]="'active'" mat-list-item routerLink="change-password">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+            <mat-icon class="material-icons-outlined">vpn_key</mat-icon>
+            <span>Cambia password</span>
+          </div>
+        </a>
+      </mat-nav-list>
+    </div>
+
+    <div fxFlex>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>

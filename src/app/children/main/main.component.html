@@ -1,0 +1,67 @@
+<mat-sidenav-container fxFlexFill>
+
+  <mat-sidenav #sidenav [mode]="mediaObserver.isActive('lt-md') ? 'over' : 'side'" [opened]="mediaObserver.isActive('gt-sm')">
+    <mat-toolbar style="padding: 0;">
+        <img src="assets/images/cibame-logo.png" alt="logo" width="60%"/>
+    </mat-toolbar>
+
+    <mat-nav-list role="list">
+      <div mat-subheader>MENU</div>
+      <a [routerLinkActive]="'active'" mat-list-item routerLink="/dashboard">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+          <mat-icon class="material-icons-outlined">dashboard</mat-icon>
+          <span>Dashboard</span>
+        </div>
+      </a>
+      <a [routerLinkActive]="'active'" mat-list-item routerLink="/product">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+          <mat-icon class="material-icons-outlined">fastfood</mat-icon>
+          <span>Prodotti</span>
+        </div>
+      </a>
+      <a [routerLinkActive]="'active'" mat-list-item routerLink="/settings">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+          <mat-icon class="material-icons-outlined">settings</mat-icon>
+          <span>Impostazioni</span>
+        </div>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content fxLayout="column" fxLayoutAlign="start stretch"
+                       style="overflow: hidden;">
+    <mat-toolbar fxLayoutAlign="start stretch">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <button (click)="sidenav.toggle()" color="accent" mat-icon-button>
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <span fxFlex></span>
+
+      <button [matMenuTriggerFor]="userMenu" mat-button>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <app-initials-avatar firstLetter="N" secondLetter="C"></app-initials-avatar>
+          <span fxHide.xs>Nome Cognome </span>
+          <mat-icon class="s16">keyboard_arrow_down</mat-icon>
+        </div>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="/settings/profile">
+          <mat-icon class="material-icons-outlined">person</mat-icon>
+          <span>Profilo</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+          <mat-icon>power_settings_new</mat-icon>
+          <span>Esci</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <div fxFlex style="overflow: auto">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

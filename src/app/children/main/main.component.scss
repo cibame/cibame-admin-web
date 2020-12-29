@@ -1,0 +1,48 @@
+@import '~src/@core/scss/theme/theme';
+
+:host {
+
+  mat-sidenav {
+    min-width: 280px;
+    width: 280px;
+    box-shadow: 7px 0 60px rgba(0,0,0,0.05);
+
+    &.mat-drawer-side {
+      border-right: none;
+    }
+  }
+
+  mat-toolbar {
+    box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
+  }
+
+  mat-nav-list {
+
+    .mat-subheader {
+      color: mat-color($admin-app-primary);
+      font-weight: bold;
+    }
+
+    a.mat-list-item {
+      position: relative;
+
+      &.active {
+
+        &:not(:hover) {
+          background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          height: 100%;
+          width: 4px;
+          background-color: mat-color($admin-app-accent);
+        }
+      }
+
+    }
+  }
+}

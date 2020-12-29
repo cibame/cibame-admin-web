@@ -1,0 +1,14 @@
+:host {
+  .container {
+    width: 100%;
+    min-height: 100%;
+    background-image: url('~src/assets/images/backgrounds/cibame-bg.png');
+    background-color: navajowhite;
+    background-position: center center;
+    background-attachment: scroll;
+    overflow: hidden;
+  }
+  //display: flex;
+  //flex-direction: column;
+  //flex: 1 1 auto;
+}

@@ -1,0 +1,49 @@
+<mat-progress-bar mode="indeterminate"
+                  color="accent"
+                  *ngIf="isLoading"
+                  [@animate]="{value:'*',params:{opacity:0, duration: '0.3s'}}"
+></mat-progress-bar>
+
+<mat-table fxFlex [class.flex]="config.flex" [dataSource]="dataSource" matSort [matSortActive]="sortActive" [matSortDirection]="sortDirection">
+
+  <ng-container *ngFor="let col of config?.columns" [matColumnDef]="col.column">
+    <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!col.sortable"
+                     [class]="col.headerClass ? col.headerClass : ''"
+                     [fxFlex]="col.flex"
+                     [fxLayoutAlign]="'center ' + col.align ? col.align : 'start'"
+    >
+      {{col.name || col.column}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"
+              [class]="col.bodyClass ? col.bodyClass : ''"
+              [fxFlex]="col.flex"
+              [fxLayoutAlign]="'center ' + col.align ? col.align : 'start'"
+    >
+      <span class="cell-content">{{formatData(element, col)}}</span>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container *ngIf="!config.stickyHeader">
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  </ng-container>
+  <ng-container *ngIf="config.stickyHeader">
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  </ng-container>
+
+  <ng-container *ngIf="!config.clickable">
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </ng-container>
+  <ng-container *ngIf="config.clickable">
+    <mat-row class="clickable" *matRowDef="let row; columns: displayedColumns;" matRipple (click)="clickItem.emit(row)"></mat-row>
+  </ng-container>
+</mat-table>
+
+<mat-paginator #paginator
+               *ngIf="config.showPaginator"
+               [pageIndex]="pageIndex"
+               [pageSize]="pageSize"
+               [length]="length"
+               [pageSizeOptions]="pageSizeOptions"
+               [showFirstLastButtons]="config.showFirstLastButton"
+               [hidePageSize]="config.hidePageSize"
+></mat-paginator>

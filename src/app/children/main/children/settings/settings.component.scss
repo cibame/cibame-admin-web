@@ -1,0 +1,33 @@
+@import '~src/@core/scss/theme/theme';
+
+:host {
+  .mat-list-base {
+    padding-top: 0;
+  }
+
+  a.mat-list-item {
+    border-radius: 5px;
+    overflow: hidden;
+    height: 40px;
+    font-size: 14px !important;
+
+    mat-icon {
+      height: 18px;
+      width: 18px;
+      line-height: 1;
+      font-size: 18px;
+    }
+
+    &.active {
+      color: white;
+      //background-color: mat-color($admin-app-accent);
+      background-color: mat-color($admin-app-primary, 700);
+      overflow: hidden;
+
+      &:hover, &:focus {
+        //background-color: mat-color($admin-app-accent, 500);
+        background-color: mat-color($admin-app-primary, 600);
+      }
+    }
+  }
+}

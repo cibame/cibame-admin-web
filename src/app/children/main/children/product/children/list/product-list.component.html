@@ -1,0 +1,42 @@
+<div fxFlexFill fxLayout="column" class="admin-page">
+  <div class="page-header" fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-xs="start start" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex>
+      <button mat-mini-fab color="accent">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <div>
+        <h1 class="title" style="margin: 0">Prodotti</h1>
+        <div class="subtitle">Lista</div>
+      </div>
+    </div>
+
+    <mat-form-field appearance="outline" fxFlex.gt-xs="300px">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>Cerca</mat-label>
+      <input [formControl]="filterFormControl" matInput placeholder="...">
+      <button mat-button *ngIf="filterFormControl.value" matSuffix mat-icon-button aria-label="Clear"
+              (click)="filterFormControl.setValue(null)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+
+  </div>
+  <div class="page-content carded mat-elevation-z1" fxFlex>
+    <app-admin-table fxFlexFill
+                     [data]="items"
+                     [config]="config"
+                     [length]="length"
+                     [isLoading]="isLoading"
+                     [pageSize]="params.pageSize || 10"
+                     [pageIndex]="params.page || 0"
+                     [sortActive]="params.sort || ''"
+                     [sortDirection]="params.sortOrder || ''"
+                     (sortChange)="onSortChange($event)"
+                     (pageChange)="onPageChange($event)"
+                     (clickItem)="onClickItem($event)"
+    ></app-admin-table>
+  </div>
+
+</div>

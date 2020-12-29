@@ -1,0 +1,97 @@
+<div fxFlexFill class="content" fxLayout="row" fxLayoutAlign="start">
+
+  <div id="intro" fxFlex fxHide fxShow.gt-xs>
+
+    <div class="logo" [@animate]="{value:'*',params:{scale:'0.2'}}" style="width: 200px">
+      <img alt="logo" src="assets/images/cibame-logo-white.png">
+    </div>
+
+    <div class="title" [@animate]="{value:'*',params:{delay:'50ms',y:'25px'}}">
+      &nbsp;
+    </div>
+
+    <div class="description" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
+      &nbsp;
+    </div>
+
+  </div>
+
+  <div class="form-wrapper"
+       [@animate]="{value:'*',params:{delay:'300ms',x:'100%'}}">
+
+    <div class="form">
+
+      <div class="logo">
+        <img alt="logo" src="assets/images/cibame-logo.png">
+      </div>
+
+      <div class="title" i18n>Crea un nuovo account</div>
+
+      <form #form="ngForm" name="registerForm" [formGroup]="fg" novalidate (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="outline">
+          <mat-label i18n="@@form.firstName">Nome</mat-label>
+          <input matInput formControlName="firstName" id="firstName" required (input)="fg.get('firstName')?.setErrors(null)">
+          <mat-error>
+            <span i18n="@@form.firstName.error.required">Il nome è obbligatorio</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label i18n="@@form.lastName">Cognome</mat-label>
+          <input matInput formControlName="lastName" id="lastName" required (input)="fg.get('lastName')?.setErrors(null)">
+          <mat-error>
+            <span i18n="@@form.lastName.error.required">Il cognome è obbligatorio</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label i18n="@@form.email">Email</mat-label>
+          <input matInput formControlName="email" id="email" required (input)="fg.get('email')?.setErrors(null)">
+          <mat-error *ngIf="fg.get('email')?.hasError('required') && form.submitted" i18n="@@form.email.error.required">L'email è
+            obbligatoria
+          </mat-error>
+          <mat-error *ngIf="fg.get('email')?.hasError('email') && form.submitted" i18n="@@form.email.error.notValid">Inserisci una email
+            valida
+          </mat-error>
+          <mat-error *ngIf="fg.get('email')?.hasError('forbidden') && form.submitted" i18n="@@form.email.error.notAvailable">Email già
+            utilizzata
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label i18n="@@form.phone">Telefono</mat-label>
+          <input matInput type="text" formControlName="phone" id="phone" required (input)="fg.get('phone')?.setErrors(null)">
+          <mat-error *ngIf="fg.get('phone')?.hasError('required') && form.submitted" i18n="@@form.phone.error.required">Il numero di
+            telefono è obbligatorio
+          </mat-error>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutAlign.xs="center center">
+          <mat-checkbox aria-label="Accept" formControlName="acceptance" (input)="fg.get('acceptance')?.setErrors(null)">
+            <span i18n>Accetta</span>
+          </mat-checkbox>
+          <span>&nbsp;</span>
+          <a class="link" target="_blank" href="#" i18n>termini e condizioni</a>
+        </div>
+        <mat-error style="font-size: 75%;" *ngIf="fg.get('acceptance')?.hasError('required') && form.submitted" i18n>Devi accettare i
+          termini e le condizioni
+        </mat-error>
+
+        <button mat-raised-button color="accent" class="submit-button" aria-label="CREATE AN ACCOUNT"
+                [disabled]="loading" type="submit" fxLayout="row" fxLayoutAlign="center center">
+          <span *ngIf="!loading" i18n>Crea account</span>
+          <span *ngIf="loading">
+            <mat-progress-spinner mode="indeterminate" color="primary" [diameter]="18"></mat-progress-spinner>
+          </span>
+        </button>
+
+      </form>
+
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <span i18n>Hai già un account</span>
+        <a class="link" routerLink="../login" i18n="@@action.login">Accedi</a>
+      </div>
+    </div>
+  </div>
+</div>

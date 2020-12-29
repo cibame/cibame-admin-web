@@ -1,0 +1,166 @@
+@import "~@angular/flex-layout/mq";
+@import '~@angular/material/theming';
+@import '~src/@core/scss/theme/theme';
+
+:host {
+
+  .content {
+    width: 100%;
+    overflow: hidden;
+
+    .link {
+      color: mat-color($admin-app-accent);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    #intro {
+      padding: 128px;
+      color: white;
+
+      @include layout-bp(sm) {
+        padding: 128px 64px;
+      }
+
+      .logo {
+        width: 80%;
+        margin-bottom: 32px;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .title {
+        font-size: 42px;
+        font-weight: 300;
+        line-height: 1;
+      }
+
+      .description {
+        padding-top: 16px;
+        font-size: 14px;
+        max-width: 600px;
+      }
+    }
+
+    .form-wrapper {
+      width: 400px;
+      min-width: 400px;
+      max-width: 400px;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      background: mat-color($mat-gray, A100);
+
+      @include mat-elevation(16);
+
+      @include layout-bp(sm) {
+        width: 360px;
+        min-width: 360px;
+        max-width: 360px;
+      }
+
+      @include layout-bp(xs) {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+      }
+
+      .form {
+        padding: 48px;
+
+        @include layout-bp(xs) {
+          text-align: center;
+          padding: 24px;
+        }
+
+        .logo {
+          width: 80%;
+          margin: 32px auto;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .title {
+          font-size: 21px;
+          text-transform: uppercase;
+          text-align: center;
+        }
+
+        .description {
+          padding-top: 8px;
+        }
+
+        form {
+          width: 100%;
+          padding-top: 32px;
+
+          mat-form-field {
+            width: 100%;
+
+            @include layout-bp(xs) {
+              width: 80%;
+            }
+          }
+
+          mat-checkbox {
+            margin: 0;
+          }
+
+          .submit-button {
+            width: 100%;
+            margin: 16px auto;
+            display: block;
+            min-height: 37px;
+
+            @include layout-bp(xs) {
+              width: 80%;
+            }
+          }
+        }
+
+        .separator {
+          font-size: 15px;
+          font-weight: 600;
+          margin: 24px auto;
+          position: relative;
+          overflow: hidden;
+          width: 100px;
+          text-align: center;
+          color: mat-color($mat-grey, 600);
+
+          .text {
+            display: inline-flex;
+            position: relative;
+            padding: 0 8px;
+            z-index: 9999;
+
+            &:before,
+            &:after {
+              content: '';
+              display: block;
+              width: 30px;
+              position: absolute;
+              top: 10px;
+              border-top: 1px solid;
+              border-top-color: mat-color($mat-grey, 600);
+            }
+
+            &:before {
+              right: 100%;
+            }
+
+            &:after {
+              left: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

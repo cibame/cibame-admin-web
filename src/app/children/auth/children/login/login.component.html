@@ -1,0 +1,87 @@
+<div fxFlexFill class="content" fxLayout="row" fxLayoutAlign="start">
+
+  <div id="intro" fxFlex fxHide fxShow.gt-xs>
+
+    <div class="logo" [@animate]="{value:'*',params:{scale:'0.2'}}" style="width: 200px">
+      <img alt="logo" src="assets/images/cibame-logo-white.png">
+    </div>
+
+    <div class="title" [@animate]="{value:'*',params:{delay:'50ms',y:'25px'}}">
+      &nbsp;
+    </div>
+
+    <div class="description" [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
+      &nbsp;
+    </div>
+
+  </div>
+
+  <div class="form-wrapper"
+       [@animate]="{value:'*',params:{delay:'300ms',x:'100%'}}">
+
+    <div class="form">
+
+      <div class="logo">
+        <img alt="logo" src="assets/images/cibame-logo.png">
+      </div>
+
+      <div class="title" i18n>Accedi al tuo account</div>
+      <form #form="ngForm" name="loginForm" [formGroup]="fg" novalidate (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="outline">
+          <mat-label i18n="@@form.email">Email</mat-label>
+          <input autocomplete="email" matInput formControlName="email" id="email" (input)="this.fg.get('email')?.setErrors(null)">
+          <mat-icon matSuffix class="material-icons-outlined">mail</mat-icon>
+          <mat-error *ngIf="fg.get('email')?.hasError('required') && form.submitted"
+                     i18n="@@form.email.error.required">
+            Inserisci la tua email
+          </mat-error>
+          <mat-error *ngIf="fg.get('email')?.hasError('email') && form.submitted"
+                     i18n="@@form.email.error.notValid">
+            Inserisci una email valida
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label i18n="@@form.password">Password</mat-label>
+          <input autocomplete="current-password" matInput type="password" formControlName="password" id="password" (input)="this.fg.get('password')?.setErrors(null)">
+          <mat-icon matSuffix class="material-icons-outlined">vpn_key</mat-icon>
+          <mat-error>
+            <mat-error *ngIf="fg.get('password')?.hasError('required') && form.submitted"
+                       i18n="@@form.password.error.required">
+              Inserisci la password
+            </mat-error>
+            <mat-error *ngIf="fg.get('password')?.hasError('invalidLogin')" i18n="@@form.password.error.notValid">
+              Email e/o password non valide
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayout.xs="column"
+             fxLayoutAlign="space-between center" fxLayoutGap="10px">
+          <mat-checkbox aria-label="Remember Me" formControlName="rememberMe">
+            <span i18n>Ricordami</span>
+          </mat-checkbox>
+
+          <a class="link" routerLink="../forgot-password" i18n>Password dimenticata?</a>
+        </div>
+
+        <button mat-raised-button color="accent" class="submit-button" aria-label="LOGIN"
+                [disabled]="isLogging" type="submit" fxLayout="row" fxLayoutAlign="center center">
+          <span *ngIf="!isLogging">
+            <span i18n="@@action.login">Accedi</span>
+          </span>
+          <span *ngIf="isLogging">
+            <mat-progress-spinner mode="indeterminate" color="primary" [diameter]="18"></mat-progress-spinner>
+          </span>
+        </button>
+
+      </form>
+
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <span class="text" i18n>Non hai un account?</span>
+        <a class="link" routerLink="../register" i18n>Crea un nuovo account</a>
+      </div>
+    </div>
+  </div>
+</div>
