@@ -1,4 +1,4 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpParams} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {PageEvent} from '@angular/material/paginator';
@@ -6,11 +6,11 @@ import {Sort} from '@angular/material/sort';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {interval} from 'rxjs';
 import {debounce, finalize, tap} from 'rxjs/operators';
-import { FlamingoHttpService } from 'src/@flamingo/service/flamingo-http.service';
-import { AdminTableConfiguration } from 'src/@shared/admin-table/admin-table.component';
-import { ListQuery } from 'src/@shared/model/list-query.model';
-import { ListQueryParams } from 'src/@shared/model/list-query.params';
-import { PaginatedList } from 'src/@shared/model/paginated-list.model';
+import {AdminTableConfiguration} from 'src/@shared/admin-table/admin-table.component';
+import {ListQuery} from 'src/@shared/model/list-query.model';
+import {ListQueryParams} from 'src/@shared/model/list-query.params';
+import {Product} from '../../../../../../../@core/model/product.model';
+import {ProductService} from '../../product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -46,7 +46,7 @@ export class ProductListComponent implements OnInit {
     ]
   };
 
-  constructor(private http: FlamingoHttpService,
+  constructor(private productService: ProductService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
     this.filterFormControl.valueChanges
@@ -75,7 +75,7 @@ export class ProductListComponent implements OnInit {
       }
     });
 
-    this.http.get<PaginatedList<Product>>('/products/paginated', params)
+    this.productService.list(params)
       .pipe(
         finalize(() => this.isLoading = false)
       )
@@ -105,7 +105,7 @@ export class ProductListComponent implements OnInit {
   }
 
   onClickItem(item: Product): void {
-    console.log(item);
+    this.router.navigate([item.id], {relativeTo: this.activatedRoute});
   }
 
   addQueryParam(params: { [key: string]: string | null }): void {
@@ -119,25 +119,6 @@ export class ProductListComponent implements OnInit {
   }
 }
 
-export interface Product {
-  id: number;
-  name: string;
-  detail: string;
-  ingredients: string;
-  description: string;
-  active: boolean;
-  price: number;
-  image: string;
-  category: Category;
-  createdDate: Date;
-  updateddDate: Date;
-  deletedDate: Date;
-}
 
-export interface Category {
-  id: number;
-  name: string;
-  description: string;
-  createdDate: Date;
-  updateddDate: Date;
-}
+
+

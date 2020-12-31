@@ -1,7 +1,7 @@
 <div class="carded" fxFlex style="padding: 20px 25px">
-  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-    <app-initials-avatar firstLetter="N" secondLetter="C"></app-initials-avatar>
-    <div>Nome Cognome</div>
+  <div *ngIf="user" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <app-initials-avatar [firstLetter]="user.firstName.charAt(0)" [secondLetter]="user.lastName.charAt(0)"></app-initials-avatar>
+    <div>{{user.firstName}} {{user.lastName}}</div>
   </div>
 
   <mat-divider style="margin: 20px 0"></mat-divider>

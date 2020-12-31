@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {finalize} from 'rxjs/operators';
+import {UserService} from '../../../../../@core/service/user.service';
 import {flamingoAnimations} from '../../../../../@flamingo/animations';
 import {FlamingoAuthService, StorageMode, TokenType} from '../../../../../@flamingo/service/flamingo-auth.service';
+import {FlamingoMessageService} from '../../../../../@flamingo/service/flamingo-message.service';
 import {AuthService} from '../../auth.service';
 
 @Component({
@@ -18,6 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private flamingoAuthService: FlamingoAuthService,
               private authService: AuthService,
+              private userService: UserService,
+              private messageService: FlamingoMessageService,
               private router: Router,
               formBuilder: FormBuilder) {
     this.fg = formBuilder.group({
@@ -36,18 +40,10 @@ export class LoginComponent implements OnInit {
     if (this.fg.invalid) {
       return;
     }
-
-    this.flamingoAuthService.setAuthorizationToken(
-      'asd',
-      this.fg.get('rememberMe')?.value ? StorageMode.local : StorageMode.session,
-      TokenType.bearer);
-    this.router.navigate(['/']);
-    return;
-
     this.isLogging = true;
 
     this.authService.login({
-      username: this.fg.get('email')?.value,
+      email: this.fg.get('email')?.value,
       password: this.fg.get('password')?.value
     })
       .pipe(
@@ -59,8 +55,13 @@ export class LoginComponent implements OnInit {
           res.jwt,
           this.fg.get('rememberMe')?.value ? StorageMode.local : StorageMode.session,
           TokenType.bearer);
-        // Navigate to root
-        this.router.navigate(['/']);
+        this.userService.fetchUser().subscribe(
+          _ => this.router.navigate(['/']),
+          err => {
+            console.error(err);
+            this.messageService.showMessage(err.message);
+            this.flamingoAuthService.logout();   }
+        );
       }, _ => {
         this.fg.get('password')?.setErrors({invalidLogin: true});
         this.flamingoAuthService.logout();

@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {finalize} from 'rxjs/operators';
+import {UserService} from '../../../../../@core/service/user.service';
 import {flamingoAnimations} from '../../../../../@flamingo/animations';
 import {FlamingoAuthService, StorageMode, TokenType} from '../../../../../@flamingo/service/flamingo-auth.service';
+import {FlamingoMessageService} from '../../../../../@flamingo/service/flamingo-message.service';
 import {AuthService} from '../../auth.service';
 
 @Component({
@@ -21,7 +23,9 @@ export class SetPasswordComponent implements OnInit {
   constructor(private flamingoAuthService: FlamingoAuthService,
               private formBuilder: FormBuilder,
               private authService: AuthService,
+              private userService: UserService,
               private router: Router,
+              private messageService: FlamingoMessageService,
               private activatedRoute: ActivatedRoute) {
     this.state = this.activatedRoute.snapshot.queryParamMap.get('email') ? SetPasswordState.code : SetPasswordState.email;
 
@@ -94,8 +98,14 @@ export class SetPasswordComponent implements OnInit {
               res.jwt,
               StorageMode.session,
               TokenType.bearer);
-            // Navigate to root
-            this.router.navigate(['/']);
+            this.userService.fetchUser().subscribe(
+              _ => this.router.navigate(['/']),
+              err => {
+                console.error(err);
+                this.messageService.showMessage(err.message);
+                this.flamingoAuthService.logout();
+              }
+            );
           }
         );
     }

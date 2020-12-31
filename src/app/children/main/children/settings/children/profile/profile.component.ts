@@ -1,5 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {User} from '../../../../../../../@core/model/user.model';
+import {UserService} from '../../../../../../../@core/service/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,8 +12,11 @@ export class ProfileComponent implements OnInit {
   @ViewChild('form') form?: NgForm;
   fg: FormGroup;
   isLoading = false;
+  user: User | null;
 
-  constructor(formBuilder: FormBuilder) {
+  constructor(formBuilder: FormBuilder,
+              private userService: UserService) {
+    this.user = userService.user;
     this.fg = formBuilder.group({
       username: [''],
       firstName: [''],

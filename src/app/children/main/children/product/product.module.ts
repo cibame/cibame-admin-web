@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductRoutingModule } from './product-routing.module';
-import { ProductListComponent } from './children/list/product-list.component';
+import { ProductListComponent } from './children/product-list/product-list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -21,12 +21,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AdminTableModule } from 'src/@shared/admin-table/admin-table.module';
 import { InitialsAvatarModule } from 'src/@shared/initials-avatar/initials-avatar.module';
+import { ProductViewComponent } from './children/product-view/product-view.component';
 
 
 
 @NgModule({
   declarations: [
-    ProductListComponent
+    ProductListComponent,
+    ProductViewComponent
   ],
   imports: [
     CommonModule,

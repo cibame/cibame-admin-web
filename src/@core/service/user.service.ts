@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {filter, take, tap} from 'rxjs/operators';
+import {filter, map, take, tap} from 'rxjs/operators';
 import {FlamingoHttpService} from '../../@flamingo/service/flamingo-http.service';
 import {ChangePasswordDto} from '../dto/change-password.dto';
 import {User} from '../model/user.model';
@@ -24,7 +24,8 @@ export class UserService {
   }
 
   public fetchUser(): Observable<User> {
-    return this.flamingoHttpService.get<User>(`/me`).pipe(
+    return this.flamingoHttpService.get<any>('/auth/me').pipe(
+      map(user => user.profile as User),
       tap((user) => this._user$.next(user))
     );
   }
@@ -34,6 +35,6 @@ export class UserService {
   }
 
   public setPassword(changePassword: ChangePasswordDto): Observable<User> {
-    return this.flamingoHttpService.post<User>(`/me/change-password`, changePassword);
+    return this.flamingoHttpService.post<User>('/auth/change-password', changePassword);
   }
 }

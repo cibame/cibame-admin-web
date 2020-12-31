@@ -39,9 +39,9 @@
       <span fxFlex></span>
 
       <button [matMenuTriggerFor]="userMenu" mat-button>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-          <app-initials-avatar firstLetter="N" secondLetter="C"></app-initials-avatar>
-          <span fxHide.xs>Nome Cognome </span>
+        <div *ngIf="user" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <app-initials-avatar [firstLetter]="user.firstName.charAt(0)" [secondLetter]="user.lastName.charAt(0)"></app-initials-avatar>
+          <span fxHide.xs>{{user.firstName}} {{user.lastName}}</span>
           <mat-icon class="s16">keyboard_arrow_down</mat-icon>
         </div>
       </button>
@@ -51,7 +51,7 @@
           <span>Profilo</span>
         </button>
         <mat-divider></mat-divider>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="logout()">
           <mat-icon>power_settings_new</mat-icon>
           <span>Esci</span>
         </button>

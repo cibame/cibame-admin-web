@@ -17,7 +17,7 @@ import {AuthService} from './children/auth/auth.service';
     AppComponent
   ],
   imports: [
-    FlamingoModule.forRoot({storagePrefix: 'eshop_admin_'}),
+    FlamingoModule.forRoot({storagePrefix: 'cibame_admin_'}),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule

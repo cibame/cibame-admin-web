@@ -1,0 +1,88 @@
+<div fxFlexFill class="admin-page">
+  <div class="page-header" fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-xs="start start" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex>
+      <button mat-icon-button routerLink="../">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <div *ngIf="product">
+        <h1 class="title" style="margin: 0">{{product.name}}</h1>
+        <div class="subtitle"># {{product.id}}</div>
+      </div>
+      <div *ngIf="!product">
+        <h1 class="title" style="margin: 0">Nuovo prodotto</h1>
+        <div class="subtitle">Inserisci un nuovo prodotto</div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="page-content carded padded mat-elevation-z1">
+
+    <form #form="ngForm"
+          name="form"
+          [formGroup]="fg"
+          (ngSubmit)="onSubmit()"
+          novalidate
+          fxLayout="column"
+    >
+      <div fxLayout="column"
+           fxLayoutAlign="start stretch"
+           fxLayout.gt-xs="row"
+           fxLayoutGap="0"
+           fxLayoutAlign.gt-xs="start center"
+           fxLayoutGap.gt-xs="10px">
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Nome</mat-label>
+          <label>
+            <input matInput formControlName="name">
+          </label>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Dettagli</mat-label>
+          <label>
+            <input matInput formControlName="detail">
+          </label>
+        </mat-form-field>
+      </div>
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Nome Utente</mat-label>-->
+<!--        <label>-->
+<!--          <input matInput type="password" formControlName="username">-->
+<!--        </label>-->
+<!--        <mat-error *ngIf="fg.get('username')?.hasError('required')">-->
+<!--          Inserisci il tuo nome utente-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Nome</mat-label>-->
+<!--        <input matInput formControlName="firstName">-->
+<!--        <mat-error *ngIf="fg.get('firstName')?.hasError('required')">-->
+<!--          Inserisci il tuo nome-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Cognome</mat-label>-->
+<!--        <input matInput formControlName="lastName">-->
+<!--        <mat-error *ngIf="fg.get('lastName')?.hasError('required')">-->
+<!--          Inserisci il tuo cognome-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Società</mat-label>-->
+<!--        <input matInput formControlName="company">-->
+<!--        <mat-error *ngIf="fg.get('company')?.hasError('required')">-->
+<!--          Inserisci il nome della società-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+      <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+        <button type="button" mat-button color="primary" (click)="onCancel()">Annulla</button>
+        <button type="submit" mat-raised-button [disabled]="isLoading"
+                color="accent">Salva
+        </button>
+      </div>
+    </form>
+
+  </div>
+
+</div>
